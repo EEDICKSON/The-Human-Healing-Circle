@@ -1,26 +1,15 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Injecting custom calming color tokens directly */
+  --color-healing-bg: #f9f8f6; /* Soft warm cream background */
+  --color-healing-slate: #e6eceb; /* Muted mist layout dividers */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-healing-blue-light: #eaf2f5; /* Light sky blue background wash */
+  --color-healing-blue: #5d8aa8; /* Peaceful ocean blue focus items */
+  --color-healing-blue-dark: #2c4c5e; /* Deep slate blue main text typography */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-healing-green-light: #edf2ee; /* Gentle sage container cards */
+  --color-healing-green: #6e8d76; /* Deep sage accent borders */
+  --color-healing-green-dark: #3b5342; /* Soft deep forest branding header */
 }
