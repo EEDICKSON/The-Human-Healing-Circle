@@ -1,15 +1,143 @@
 @import "tailwindcss";
 
 @theme {
-  /* Injecting custom calming color tokens directly */
-  --color-healing-bg: #f9f8f6; /* Soft warm cream background */
-  --color-healing-slate: #e6eceb; /* Muted mist layout dividers */
+  /* Core Brand Colors */
+  --color-healing-bg: #f9f8f6;
+  --color-healing-slate: #e6eceb;
 
-  --color-healing-blue-light: #eaf2f5; /* Light sky blue background wash */
-  --color-healing-blue: #5d8aa8; /* Peaceful ocean blue focus items */
-  --color-healing-blue-dark: #2c4c5e; /* Deep slate blue main text typography */
+  --color-healing-blue-light: #eaf2f5;
+  --color-healing-blue: #5d8aa8;
+  --color-healing-blue-dark: #2c4c5e;
 
-  --color-healing-green-light: #edf2ee; /* Gentle sage container cards */
-  --color-healing-green: #6e8d76; /* Deep sage accent borders */
-  --color-healing-green-dark: #3b5342; /* Soft deep forest branding header */
+  --color-healing-green-light: #edf2ee;
+  --color-healing-green: #6e8d76;
+  --color-healing-green-dark: #3b5342;
+}
+
+/* ---------- Base Styling ---------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-healing-bg);
+  color: var(--color-healing-blue-dark);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Text Selection ---------- */
+
+::selection {
+  background: rgba(110, 141, 118, 0.25);
+  color: var(--color-healing-blue-dark);
+}
+
+/* ---------- Scrollbar Styling ---------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-healing-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-healing-green);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-healing-green-dark);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-healing-green) var(--color-healing-bg);
+}
+
+/* ---------- Utility Classes ---------- */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---------- Focus States ---------- */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-healing-green);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Smooth Interactive Elements ---------- */
+
+a,
+button {
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* ---------- Subtle Wellness Background ---------- */
+
+.healing-glow {
+  position: relative;
+}
+
+.healing-glow::before {
+  content: "";
+  position: absolute;
+  inset: -100px;
+  background: radial-gradient(
+    circle,
+    rgba(110, 141, 118, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ---------- Card Styling ---------- */
+
+.healing-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(230, 236, 235, 0.8);
+  border-radius: 1rem;
+  box-shadow:
+    0 4px 20px rgba(44, 76, 94, 0.04),
+    0 1px 2px rgba(44, 76, 94, 0.06);
+}
+
+/* ---------- Header Glass Effect ---------- */
+
+.healing-glass {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ---------- Typography Improvements ---------- */
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.75;
 }

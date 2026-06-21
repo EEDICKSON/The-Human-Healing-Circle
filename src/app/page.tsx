@@ -1,119 +1,131 @@
+"use client";
+
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="bg-healing-bg text-healing-blue-dark font-sans min-h-screen">
-      {/* Hero Section */}
-      <section className="max-w-4xl mx-auto text-center px-6 py-20">
-        <h1 className="font-serif text-4xl md:text-5xl font-bold text-healing-green-dark mb-4">
-          The Human Healing Circle
+      {/* Hero Banner Section */}
+      <section className="max-w-4xl mx-auto text-center py-20 px-6">
+        <span className="text-xs font-bold uppercase tracking-widest text-healing-green bg-healing-green-light px-3 py-1 rounded-full">
+          An International Community
+        </span>
+        <h1 className="font-serif text-4xl md:text-5xl font-bold text-healing-green-dark mt-4 mb-6 leading-tight">
+          Human Healing Circle
         </h1>
-        <p className="text-xl italic text-healing-green mb-8">
-          Healing through Human Connection
+        <p className="text-base md:text-lg leading-relaxed text-gray-6xl max-w-2xl mx-auto mb-8 font-medium">
+          An international community of compassionate individuals dedicated to
+          supporting people facing emotional, mental, spiritual and, at times,
+          physical challenges.
         </p>
-        <p className="text-lg leading-relaxed max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-healing-slate">
-          No one should walk through life's hardest moments alone. The Human
-          Healing Circle is a worldwide community of compassion, companionship,
-          friendship and hope.
-        </p>
-      </section>
-
-      {/* Our Promise (Highlighted Section) */}
-      <section className="bg-healing-blue-light border-y border-healing-slate py-12 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-serif text-2xl font-bold text-healing-blue-dark mb-6">
-            Our Promise To You
-          </h2>
-          <div className="space-y-3 text-lg font-medium text-healing-blue-dark/90">
-            <p>• You do not have to pretend to be strong.</p>
-            <p>• You do not have to have all the answers.</p>
-            <p>• You do not have to walk alone.</p>
-          </div>
-          <p className="mt-6 italic text-healing-green-dark font-serif">
-            Whatever season of life you are facing, there is a place for you
-            here.
-          </p>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link
+            href="/onboard"
+            className="bg-healing-green hover:bg-healing-green-dark text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-sm transition"
+          >
+            Begin Your Intake Wizard
+          </Link>
+          <Link
+            href="/community"
+            className="bg-white border border-healing-slate text-healing-blue-dark text-sm font-semibold px-6 py-3 rounded-xl shadow-sm hover:bg-healing-slate/40 transition"
+          >
+            Explore Friendship Space
+          </Link>
         </div>
       </section>
 
-      {/* Core Services Preview Grid */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <h2 className="font-serif text-3xl font-bold text-center text-healing-green-dark mb-12">
-          How We Walk Together
+      {/* Shared Principles Block */}
+      <section className="bg-white border-t border-b border-healing-slate py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-healing-green-dark">
+              Our Five Key Principles
+            </h2>
+            <p className="text-xs opacity-70 mt-2">
+              Together, we strive to create a caring and inclusive environment
+              where individuals feel valued, supported, and empowered.
+            </p>
+          </div>
+
+          <div className="grid gap-6">
+            {[
+              {
+                num: "1",
+                title: "Safe & Confidential Space",
+                desc: "Providing a safe and confidential space where people can openly share their experiences without fear of judgment.",
+              },
+              {
+                num: "2",
+                title: "Compassionate Listening",
+                desc: "Offering compassionate listening and mutual support, with a focus on understanding rather than giving advice or trying to solve problems.",
+              },
+              {
+                num: "3",
+                title: "Holistic Wellbeing",
+                desc: "Promoting healing and personal growth by nurturing emotional, mental, spiritual and overall wellbeing.",
+              },
+              {
+                num: "4",
+                title: "Meaningful Relationships",
+                desc: "Creating a supportive network and community where people can connect, make friends and build meaningful, lifelong relationships founded on trust, respect and shared experiences.",
+              },
+              {
+                num: "5",
+                title: "Fostering Belonging",
+                desc: "Fostering a sense of belonging, ensuring that no one has to face life's challenges alone.",
+              },
+            ].map((principle) => (
+              <div
+                key={principle.num}
+                className="flex gap-4 p-5 rounded-2xl border border-healing-slate bg-healing-bg/20 hover:bg-healing-bg/40 transition"
+              >
+                <div className="w-8 h-8 rounded-full bg-healing-green text-white font-bold flex items-center justify-center shrink-0 text-sm">
+                  {principle.num}
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold text-healing-green-dark text-base mb-1">
+                    {principle.title}
+                  </h3>
+                  <p className="text-sm text-gray-6xl leading-relaxed">
+                    {principle.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Global Presence Section */}
+      <section className="max-w-4xl mx-auto py-16 px-6 text-center">
+        <h2 className="font-serif text-2xl font-bold text-healing-green-dark mb-2">
+          Countries & Regions We Serve
         </h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Card 1 */}
-          <div className="bg-white p-8 rounded-2xl border border-healing-slate shadow-sm">
-            <h3 className="font-serif text-xl font-bold text-healing-green mb-3">
-              One-to-One Companion Support
-            </h3>
-            <p className="text-sm leading-relaxed text-gray-6xl mb-4">
-              Connect via WhatsApp, Viber, phone, text, or email. Receive weekly
-              check-ins, scheduled companion conversations, and genuine human
-              connection.
-            </p>
-            <span className="text-xs uppercase tracking-wider font-semibold text-healing-blue">
-              Personal Support
+        <p className="text-sm text-gray-6xl max-w-xl mx-auto mb-8">
+          Through shared experiences, empathy, and holistic practices, we
+          promote healing, wellbeing and a sense of belonging across the
+          following territories:
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          {[
+            "United Kingdom",
+            "Europe",
+            "United States",
+            "Canada",
+            "Australia",
+          ].map((region) => (
+            <span
+              key={region}
+              className="bg-white border border-healing-slate text-sm font-semibold px-4 py-2 rounded-xl shadow-sm"
+            >
+              📍 {region}
             </span>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white p-8 rounded-2xl border border-healing-slate shadow-sm">
-            <h3 className="font-serif text-xl font-bold text-healing-green mb-3">
-              Monthly Global Circles
-            </h3>
-            <p className="text-sm leading-relaxed text-gray-6xl mb-4">
-              Join online group conversations with people worldwide facing
-              similar experiences like grief, illness, divorce, or loneliness.
-            </p>
-            <span className="text-xs uppercase tracking-wider font-semibold text-healing-blue">
-              Group Support
-            </span>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white p-8 rounded-2xl border border-healing-slate shadow-sm">
-            <h3 className="font-serif text-xl font-bold text-healing-green mb-3">
-              Friendship Circle
-            </h3>
-            <p className="text-sm leading-relaxed text-gray-6xl mb-4">
-              Receive carefully considered introductions to suitable companions
-              based on age, language, faith, country, or shared life
-              experiences.
-            </p>
-            <span className="text-xs uppercase tracking-wider font-semibold text-healing-blue">
-              Community Connections
-            </span>
-          </div>
+          ))}
         </div>
-      </section>
-
-      {/* Call to Action Box */}
-      <section className="max-w-4xl mx-auto px-6 pb-20">
-        <div className="bg-healing-green-light rounded-3xl p-10 text-center border border-healing-green/20">
-          <h2 className="font-serif text-2xl font-bold text-healing-green-dark mb-4">
-            Ready to find your circle?
-          </h2>
-          <p className="mb-6 max-w-xl mx-auto text-sm">
-            Whether you are facing life's unexpected challenges or wish to
-            become a Trusted Companion to walk alongside others, we welcome you.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="/onboard"
-                className="bg-healing-green hover:bg-healing-green-dark text-white font-medium px-6 py-3 rounded-xl transition shadow-sm cursor-pointer text-sm"
-              >
-                Get Started (Intake Form)
-              </a>
-              <a
-                href="/become-companion"
-                className="bg-white hover:bg-healing-slate text-healing-green-dark font-medium px-6 py-3 rounded-xl border border-healing-green/30 transition shadow-sm cursor-pointer text-sm"
-              >
-                Become a Companion
-              </a>
-            </div>
-          </div>
-        </div>
+        <p className="text-xs opacity-60 italic mt-8">
+          As an international community, we welcome people from all backgrounds
+          and continue to expand our network of support around the world.
+        </p>
       </section>
     </div>
   );

@@ -1,21 +1,36 @@
-"use client"; // Enables client runtime operations to pull live database rows
+"use client";
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
 
 export default function AdminQueueDashboard() {
-  const [activeTab, setActiveTab] = useState("intakes"); // 'intakes' or 'companions'
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+
+  const [activeTab, setActiveTab] = useState("intakes");
   const [intakes, setIntakes] = useState<any[]>([]);
   const [companions, setCompanions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Pull real-time data lists straight from your cloud database tables
+  const ADMIN_PASSWORD = "HHC_Admin_2026"; // Change this to your preferred master password!
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      setPasswordError(false);
+      fetchDashboardData();
+    } else {
+      setPasswordError(true);
+    }
+  };
+
   const fetchDashboardData = async () => {
     setLoading(true);
     setErrorMessage("");
     try {
-      // 1. Grab all registered Member Intakes rows
       const { data: intakeRows, error: intakeError } = await supabase
         .from("member_intakes")
         .select("*")
@@ -24,7 +39,6 @@ export default function AdminQueueDashboard() {
       if (intakeError) throw intakeError;
       setIntakes(intakeRows || []);
 
-      // 2. Grab all registered Companion Volunteer application rows
       const { data: companionRows, error: companionError } = await supabase
         .from("companion_applications")
         .select("*")
@@ -34,23 +48,63 @@ export default function AdminQueueDashboard() {
       setCompanions(companionRows || []);
     } catch (err: any) {
       console.error("Dashboard pull fault:", err);
-      setErrorMessage(
-        "Could not load data lines from the cloud. Verify security policies.",
-      );
+      setErrorMessage("Could not load data lines from the cloud.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Run the data fetch instantly when the component mounts onto the view
   useEffect(() => {
-    fetchDashboardData();
-  }, []);
+    if (isAuthenticated) {
+      fetchDashboardData();
+    }
+  }, [isAuthenticated]);
 
+  // If not authenticated, render the lock screen gate
+  if (!isAuthenticated) {
+    return (
+      <div className="bg-healing-bg text-healing-blue-dark min-h-screen flex items-center justify-center px-6 py-12">
+        <div className="max-w-md w-full bg-white border border-healing-slate rounded-3xl p-8 shadow-sm text-center">
+          <div className="w-12 h-12 bg-healing-green-light rounded-full flex items-center justify-center mx-auto mb-4 text-healing-green-dark text-xl">
+            🔒
+          </div>
+          <h1 className="font-serif text-2xl font-bold text-healing-green-dark mb-2">
+            Coordinator Portal
+          </h1>
+          <p className="text-xs text-gray-500 mb-6">
+            Please provide the administration access key sequence to decrypt
+            queue panels.
+          </p>
+
+          <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            <input
+              type="password"
+              placeholder="Enter Admin Password"
+              className="w-full p-3 rounded-xl border border-healing-slate text-center text-sm focus:outline-none focus:border-healing-green"
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+            />
+            {passwordError && (
+              <p className="text-xs text-red-500 font-semibold">
+                Incorrect passcode. Access rejected.
+              </p>
+            )}
+            <button
+              type="submit"
+              className="w-full bg-healing-green hover:bg-healing-green-dark text-white text-sm font-semibold py-3 rounded-xl shadow-sm transition cursor-pointer"
+            >
+              Unlock Dashboard
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // Content displays normally once unlocked
   return (
     <div className="bg-healing-bg text-healing-blue-dark font-sans min-h-screen py-10 px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header Ribbon */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-healing-slate pb-6 mb-8 gap-4">
           <div>
             <h1 className="font-serif text-3xl font-bold text-healing-green-dark">
@@ -74,7 +128,6 @@ export default function AdminQueueDashboard() {
           </div>
         )}
 
-        {/* Tab Selection Switches */}
         <div className="flex gap-4 border-b border-healing-slate/60 pb-px mb-6">
           <button
             onClick={() => setActiveTab("intakes")}
@@ -90,14 +143,12 @@ export default function AdminQueueDashboard() {
           </button>
         </div>
 
-        {/* Loading Spinner Template */}
         {loading ? (
           <div className="text-center py-20 text-sm italic opacity-70">
             Pulling secure data paths straight from the cloud...
           </div>
         ) : (
           <div>
-            {/* VIEW TAB 1: Member Intakes Management Grid */}
             {activeTab === "intakes" && (
               <div className="space-y-4">
                 {intakes.length === 0 ? (
@@ -154,7 +205,6 @@ export default function AdminQueueDashboard() {
               </div>
             )}
 
-            {/* VIEW TAB 2: Companion Applications Management Grid */}
             {activeTab === "companions" && (
               <div className="space-y-4">
                 {companions.length === 0 ? (
